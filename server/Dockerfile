@@ -14,7 +14,7 @@ RUN npm install --production
 COPY . .
 
 # Expose port (default for many Node apps)
-EXPOSE 7000
+EXPOSE 8000
 
 # Start the application
 CMD ["node", "index.js"]
