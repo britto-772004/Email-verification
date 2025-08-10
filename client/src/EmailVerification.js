@@ -27,7 +27,7 @@ export default function EmailVerification() {
       const res = await axios.post(
         "http://localhost:8000/email/sendemail",
         { email },
-        { withCredentials: true, headers: { "Content-Type": "application/json" } }
+        { withCredentials : true, headers: { "Content-Type": "application/json" } }
       );
       setMessage(res.data.message);
       setStep(2);
@@ -42,7 +42,7 @@ export default function EmailVerification() {
       const res = await axios.post(
         "http://localhost:8000/email/verifyemail",
         { email, code },
-        { withCredentials: true, headers: { "Content-Type": "application/json" } }
+        { withCredentials : true, headers: { "Content-Type": "application/json" } }
       );
       setMessage(res.data.message);
       if (res.data.message.toLowerCase().includes("success")) {
