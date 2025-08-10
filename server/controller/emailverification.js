@@ -15,20 +15,18 @@ const transport = nodemailer.createTransport(
 );
 
 exports.sendemail = async (req,res)=>{
-    // receive email id in request 
-    console.log("hi inside sendemail");
+
     const {email} = req.body;
-    console.log("received email : ",email);
+    // console.log("received email : ",email);
     if(!email){
         return res.status(404).json({message : "email id is required for verification "});
     }
-    console.log("2");
+    // console.log("2");
     // generate the six digit code 
     const code = Math.floor(100000 + Math.random() * 900000 ).toString();
     
-    console.log("3");
+    // console.log("3");
     try{
-        console.log("inside try");
         await transport.sendMail(
             {
                 from : process.env.emailid,
@@ -37,7 +35,7 @@ exports.sendemail = async (req,res)=>{
                 text : `email code is ${code}`
             }
         );
-        console.log("4");
+        // console.log("4");
 
         req.session.verification = {
             email,
@@ -45,6 +43,7 @@ exports.sendemail = async (req,res)=>{
             createdAt: Date.now() // Store current time in ms
           };
         // req.session.verification = {email,code};
+        console.log("email sent successfully to ",email);
         res.json({message : "email sent successfully "});
 
     }
@@ -61,12 +60,16 @@ exports.verifyemail = async (req,res)=>{
     if(!email){
         return res.status(404).json({message : "invalide email from the frontend"});
     }
+    if(!code){
+        return res.status(404).json({message : "code is not sended from the frontend "});
+    }
 
     // take the code saved in the session in backend 
     const datainsession = req.session.verification;
-    console.log("System code is : ",datainsession.code);
-    console.log("receive code is : ",code);
-    console.log("received email : ",email);
+    // console.log("datainsertion : ",datainsession);
+    // console.log("System code is : ",datainsession.code);
+    // console.log("receive code is : ",code);
+    // console.log("received email : ",email);
 
     const currentTime = Date.now();
     if (currentTime - datainsession.createdAt > 60000) {
@@ -87,5 +90,6 @@ exports.verifyemail = async (req,res)=>{
     }
 
     req.session.verification = null;
+    console.log(`email verified successfully for the ${email}`);
     res.json({message:"successfully verified",emailid : email});
 }

@@ -8,7 +8,7 @@ const emailverification = require("./routes/emailverificationroutes");
 app.use(express.json());
 const cors = require("cors");
 app.use(cors({
-  origin: "*",
+  origin: "http://localhost:3000",
   credentials: true
 }));
 

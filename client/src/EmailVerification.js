@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+// const backendapi = "https://email-verification-dvyz.onrender.com";
+const backendapi = "http://localhost:8000";
+
 export default function EmailVerification() {
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -25,7 +28,8 @@ export default function EmailVerification() {
   const sendCode = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:8000/email/sendemail",
+        // "http://localhost:8000/email/sendemail",
+        `${backendapi}/email/sendemail`,
         { email },
         { withCredentials : true, headers: { "Content-Type": "application/json" } }
       );
@@ -39,8 +43,11 @@ export default function EmailVerification() {
 
   const verifyCode = async () => {
     try {
+      console.log("email : ",email);
+      console.log("passcode : ",code);
       const res = await axios.post(
-        "http://localhost:8000/email/verifyemail",
+        // "http://localhost:8000/email/verifyemail",
+        `${backendapi}/email/verifyemail`,
         { email, code },
         { withCredentials : true, headers: { "Content-Type": "application/json" } }
       );
