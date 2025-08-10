@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-// const backendapi = "https://email-verification-dvyz.onrender.com";
-const backendapi = "http://localhost:8000";
+ const backendapi = "https://email-verification-dvyz.onrender.com";
+//const backendapi = "http://localhost:8000";
 
 export default function EmailVerification() {
   const [email, setEmail] = useState("");
