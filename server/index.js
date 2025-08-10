@@ -8,7 +8,8 @@ const emailverification = require("./routes/emailverificationroutes");
 app.use(express.json());
 const cors = require("cors");
 app.use(cors({
-  origin: "http://localhost:3000",
+  //origin: "http://localhost:3000",
+  origin : "https://email-verification-avaw.vercel.app",
   credentials: true
 }));
 
