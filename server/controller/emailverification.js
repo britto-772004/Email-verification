@@ -70,7 +70,9 @@ exports.verifyemail = async (req,res)=>{
     // console.log("System code is : ",datainsession.code);
     // console.log("receive code is : ",code);
     // console.log("received email : ",email);
-
+    if (!datainsession) {
+        return res.status(400).json({ message: "No verification data in session" });
+    }
     const currentTime = Date.now();
     if (currentTime - datainsession.createdAt > 60000) {
         req.session.verification = null; // Clear expired data
