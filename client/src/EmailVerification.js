@@ -41,24 +41,48 @@ export default function EmailVerification() {
     }
   };
 
+  // const verifyCode = async () => {
+  //   try {
+  //     console.log("email : ",email);
+  //     console.log("passcode : ",code);
+  //     const res = await axios.post(
+  //       // "http://localhost:8000/email/verifyemail",
+  //       `${backendapi}/email/verifyemail`,
+  //       { email, code },
+  //       { withCredentials : true, headers: { "Content-Type": "application/json" } }
+  //     );
+  //     setMessage(res.data.message);
+  //     if (res.data.message.toLowerCase().includes("success")) {
+  //       setStep(3); // move to success screen
+  //     }
+  //   } catch (err) {
+  //     setMessage(err.response?.data?.message || "Error verifying code");
+  //   }
+  // };
+
   const verifyCode = async () => {
     try {
-      console.log("email : ",email);
-      console.log("passcode : ",code);
+      setMessage(""); // clear previous message
+      console.log("email : ", email);
+      console.log("passcode : ", code);
+  
       const res = await axios.post(
-        // "http://localhost:8000/email/verifyemail",
-        `${backendapi}/email/verifyemail`,
+        "http://localhost:8000/email/verifyemail",
         { email, code },
-        { withCredentials : true, headers: { "Content-Type": "application/json" } }
+        { withCredentials: true, headers: { "Content-Type": "application/json" } }
       );
+  
       setMessage(res.data.message);
+  
       if (res.data.message.toLowerCase().includes("success")) {
         setStep(3); // move to success screen
       }
     } catch (err) {
       setMessage(err.response?.data?.message || "Error verifying code");
+      setCode(""); // clear input so user must re-enter
     }
   };
+  
 
   return (
     <div style={{ maxWidth: "400px", margin: "20px auto", fontFamily: "Arial" }}>
